@@ -23,6 +23,7 @@ INSTRUCTION = """
   ツール一覧
   - list-companies: すべての企業データを取得します。
   - search-companies-by-name: 企業名で企業データを検索します。
+  - search-companies-by-location: 所在地で企業データを検索します。
   - add-company: 新しい企業データを追加します。
   - delete-company: 企業データを削除します。
   - init-company-master: company_masterテーブルを初期化します（テスト用）。

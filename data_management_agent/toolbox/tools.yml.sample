@@ -12,6 +12,7 @@ toolsets:
     - init-company-master
     - list-companies
     - search-companies-by-name
+    - search-companies-by-location
     - add-company
     - delete-company
     - update-company-name
@@ -35,6 +36,13 @@ tools:
         'B株式会社' AS name,
         '0000000000001' AS corporate_number,
         '東京都港区2-2-2' AS location,
+        NULL AS deleted_at
+      UNION ALL
+      SELECT
+        (GENERATE_UUID()) AS id,
+        'C株式会社' AS name,
+        '0000000000002' AS corporate_number,
+        '東京都港区3-3-3' AS location,
         NULL AS deleted_at
       UNION ALL
       SELECT
@@ -79,6 +87,27 @@ tools:
         `data_management_agent.company_master`
       WHERE
         name LIKE CONCAT('%', @name_keyword, '%')
+        AND deleted_at IS NULL
+      ;
+  search-companies-by-location:
+    kind: bigquery-sql
+    source: my-bigquery-source
+    description: Search companies by location in the company_master table.
+    parameters:
+      - name: location_keyword
+        type: string
+        description: Keyword to search in company locations.
+    statement: |
+      SELECT
+        id,
+        name,
+        corporate_number,
+        location,
+        deleted_at
+      FROM
+        `data_management_agent.company_master`
+      WHERE
+        location LIKE CONCAT('%', @location_keyword, '%')
         AND deleted_at IS NULL
       ;
   add-company:
