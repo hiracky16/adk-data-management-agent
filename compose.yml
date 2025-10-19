@@ -1,0 +1,38 @@
+services:
+  toolbox:
+    image: us-central1-docker.pkg.dev/database-toolbox/toolbox/toolbox:latest
+    environment:
+      - CLOUDSDK_CONFIG=/.gcp/config
+      - GOOGLE_APPLICATION_CREDENTIALS=/.gcp/config/application_default_credentials.json
+    volumes:
+      - ./data_management_agent/toolbox/:/config/:ro
+      - $HOME/.config/gcloud:/.gcp/config:ro
+    command:
+      [
+        "toolbox",
+        "--tools-file",
+        "/config/tools.yml",
+        "--address",
+        "0.0.0.0",
+        "--port",
+        "5001",
+      ]
+    container_name: toolbox
+  agent:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    env_file:
+      - .env
+    environment:
+      - CLOUDSDK_CONFIG=/.gcp/config
+      - GOOGLE_APPLICATION_CREDENTIALS=/.gcp/config/application_default_credentials.json
+      - TOOLBOX_URL=http://toolbox:5001
+    volumes:
+      - ./data_management_agent/:/app/data_management_agent/:ro
+      - $HOME/.config/gcloud:/.gcp/config:ro
+    command: ["uv", "run", "adk", "web", "--host", "0.0.0.0"]
+    ports:
+      - "8000:8000"
+    depends_on:
+      - toolbox
