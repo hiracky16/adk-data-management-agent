@@ -31,6 +31,12 @@ hiracky16 (ひらき)
   - 重複レコードの削除
   - 所在地による営業リストの抽出
 
+- QR コードは GitHub リポジトリへのリンク
+  - https://github.com/hiracky16/adk-data-management-agent
+- スターお待ちしています！！
+
+![h:200 bg right:30%](./images/repo_qr.png)
+
 ---
 
 # データマネジメントとは？
@@ -112,3 +118,25 @@ hiracky16 (ひらき)
 ---
 
 # ご清聴ありがとうございました！
+
+---
+# Appendix
+企業リストの表示
+![](./images/demo1.png)
+
+
+---
+# Appendix
+企業の追加
+![](./images/demo2.png)
+
+---
+# Appendix
+重複企業の削除
+![](./images/demo3.png)
+
+---
+# Appendix
+所在地による営業リストの抽出
+![](./images/demo4.png)
+
